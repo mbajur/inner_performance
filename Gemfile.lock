@@ -136,6 +136,7 @@ GEM
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     pagy (9.3.1)
+    pg (1.5.9)
     psych (5.2.0)
       stringio
     puma (6.5.0)
@@ -257,11 +258,13 @@ PLATFORMS
 
 DEPENDENCIES
   inner_performance!
+  pg (~> 1.1)
   puma
+  rails (~> 8.0.0)
   rspec-rails
   simplecov
   sprockets-rails
-  sqlite3
+  sqlite3 (>= 2.1)
 
 BUNDLED WITH
    2.5.23

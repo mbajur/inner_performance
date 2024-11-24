@@ -1,0 +1,5 @@
+gem "puma"
+
+gem "sprockets-rails"
+
+gem 'simplecov', require: false, group: :test
