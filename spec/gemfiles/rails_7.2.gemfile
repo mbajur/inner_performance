@@ -6,6 +6,6 @@ eval_gemfile '../../shared.gemfile'
 
 gem 'rails', '~> 7.2.0'
 
-gem 'sqlite3', '>= 2.1'
-gem 'pg', '~> 1.1'
 gem 'mysql2', '~> 0.5'
+gem 'pg', '~> 1.1'
+gem 'sqlite3', '>= 2.1'

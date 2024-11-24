@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InnerPerformance
   class SaveEventJob < ApplicationJob
     def perform(type:, created_at:, event:, name:, duration:, db_runtime:, properties: {})

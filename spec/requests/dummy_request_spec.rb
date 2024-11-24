@@ -25,9 +25,9 @@ RSpec.describe 'Dummy request', type: :request do
       expect(InnerPerformance::SaveEventJob).to(
         have_been_enqueued.with(
           hash_including(
-            type: "InnerPerformance::Events::ProcessActionActionController",
-            event: "process_action.action_controller",
-            name: "ApplicationController#dummy"
+            type: 'InnerPerformance::Events::ProcessActionActionController',
+            event: 'process_action.action_controller',
+            name: 'ApplicationController#dummy'
           )
         )
       )

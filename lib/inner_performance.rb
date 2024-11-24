@@ -1,9 +1,11 @@
-require "inner_performance/version"
-require "inner_performance/engine"
-require "inner_performance/configuration"
+# frozen_string_literal: true
 
-require "ransack"
-require "pagy"
+require 'inner_performance/version'
+require 'inner_performance/engine'
+require 'inner_performance/configuration'
+
+require 'ransack'
+require 'pagy'
 
 module InnerPerformance
   class << self
@@ -16,7 +18,7 @@ module InnerPerformance
     end
 
     def install!
-      ActiveSupport::Notifications.subscribe "process_action.action_controller" do |event|
+      ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |event|
         if save_event?(event)
           InnerPerformance::SaveEventJob.perform_later(
             type: InnerPerformance::Events::ProcessActionActionController.name,
@@ -32,7 +34,7 @@ module InnerPerformance
         end
       end
 
-      ActiveSupport::Notifications.subscribe "perform.active_job" do |event|
+      ActiveSupport::Notifications.subscribe 'perform.active_job' do |event|
         if save_event?(event)
           InnerPerformance::SaveEventJob.perform_later(
             type: InnerPerformance::Events::PerformActiveJob.name,

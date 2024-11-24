@@ -1,5 +1,10 @@
-gem "puma"
+# frozen_string_literal: true
 
-gem "sprockets-rails"
+gem 'puma'
+
+gem 'sprockets-rails'
 
 gem 'simplecov', require: false, group: :test
+
+gem 'rubocop', require: false
+gem 'rubocop-shopify', require: false

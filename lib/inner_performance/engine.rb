@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InnerPerformance
   class Engine < ::Rails::Engine
     isolate_namespace InnerPerformance

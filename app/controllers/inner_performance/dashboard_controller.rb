@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InnerPerformance
   class DashboardController < ApplicationController
     def index

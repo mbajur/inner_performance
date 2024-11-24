@@ -1,9 +1,8 @@
+# frozen_string_literal: true
+
 module InnerPerformance
   class Configuration
-    attr_accessor :sample_rates
-    attr_accessor :events_retention
-    attr_accessor :medium_duration_range
-    attr_accessor :ignore_rules
+    attr_accessor :sample_rates, :events_retention, :medium_duration_range, :ignore_rules
 
     def initialize
       @sample_rates = {

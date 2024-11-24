@@ -9,9 +9,9 @@ describe DummyJob do
     expect(InnerPerformance::SaveEventJob).to(
       have_been_enqueued.with(
         hash_including(
-          type: "InnerPerformance::Events::PerformActiveJob",
-          event: "perform.active_job",
-          name: "DummyJob"
+          type: 'InnerPerformance::Events::PerformActiveJob',
+          event: 'perform.active_job',
+          name: 'DummyJob'
         )
       )
     )
