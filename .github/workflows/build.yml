@@ -125,16 +125,9 @@ jobs:
 
     - uses: browser-actions/setup-chrome@v1
 
-    - name: Restore Onebox Data and Views Cache
-      uses: actions/cache/restore@v4
-      id: restore-onebox-data-and-views
-      with:
-        path: |
-          tmp/cache/onebox-data
-          tmp/cache/onebox-views
-          spec/dummy/tmp/cache/onebox-data
-          spec/dummy/tmp/cache/onebox-views
-        key: onebox-data-and-views
+    - name: Setup DB
+      run: |
+        bundle exec rake db:create db:schema:load
 
     - name: "Run Tests"
       run: |
