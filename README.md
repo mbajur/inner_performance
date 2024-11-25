@@ -72,9 +72,12 @@ InnerPerformance.configure do |config|
 end
 ```
 
-`InnerPerformance` will produce an infinite amount of event records so in order
-to clean them up, you should periodically run
-`InnerPerformance::CleanupJob.perform_later`.
+## Regular Housekeeping
+To ensure optimal performance and avoid data bloat, remember to schedule the cleanup job:
+
+```ruby
+InnerPerformance::CleanupJob.perform_later
+```
 
 # Alternatives
 
