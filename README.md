@@ -43,7 +43,7 @@ InnerPerformance.configure do |config|
     # approx. 170 requests per minute, keeping it at default 2%
     # provides me more than enough data to analyze and locate the
     # bottlenecks.
-    'process_action.action_controller' => 2,
+    'process_action.action_controller' => (Rails.env.production? ? 2 : 100),
 
     # 100% of all the jobs will be stored and analyzed.
     'perform.active_job' => 100
