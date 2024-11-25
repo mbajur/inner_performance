@@ -28,6 +28,13 @@ Mount UI in `routes.rb` (don't forget to protect it!)
 mount InnerPerformance::Engine, at: '/inner_performance'
 ```
 
+Optional: Add configuration option to enable Rails notifications are fired in development
+
+```ruby
+# config/initializers/development.rb
+config.server_timing = true
+```
+
 ## Configuration
 
 inner_performance comes with some good defaults but in order to customize
