@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '>= 7.1.5'
   spec.add_dependency 'ransack', '>= 4.2.1'
 
-  spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'factory_bot'
+  spec.add_development_dependency 'rspec-rails'
 end
