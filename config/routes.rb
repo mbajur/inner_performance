@@ -3,5 +3,5 @@
 InnerPerformance::Engine.routes.draw do
   resources :events, only: [:index]
 
-  root to: 'dashboard#index'
+  root to: "dashboard#index"
 end

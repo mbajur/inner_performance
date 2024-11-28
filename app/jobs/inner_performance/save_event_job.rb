@@ -10,7 +10,7 @@ module InnerPerformance
         name: name,
         duration: duration,
         db_runtime: db_runtime,
-        properties: properties
+        properties: properties,
       )
     end
   end

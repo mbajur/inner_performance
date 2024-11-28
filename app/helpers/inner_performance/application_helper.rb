@@ -10,9 +10,9 @@ module InnerPerformance
       medium_duration_range = InnerPerformance.configuration.medium_duration_range
 
       if duration.between?(medium_duration_range[0], medium_duration_range[1])
-        'text-warning'
+        "text-warning"
       elsif duration >= medium_duration_range[1]
-        'text-danger'
+        "text-danger"
       end
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-gem 'puma'
+gem "puma"
 
-gem 'sprockets-rails'
+gem "sprockets-rails"
 
-gem 'simplecov', require: false, group: :test
+gem "simplecov", require: false, group: :test

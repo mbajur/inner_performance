@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'inner_performance/version'
-require 'inner_performance/engine'
-require 'inner_performance/configuration'
+require "inner_performance/version"
+require "inner_performance/engine"
+require "inner_performance/configuration"
 
-require 'ransack'
-require 'pagy'
+require "ransack"
+require "pagy"
 
 module InnerPerformance
   class << self
@@ -18,7 +18,7 @@ module InnerPerformance
     end
 
     def install!
-      ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |event|
+      ActiveSupport::Notifications.subscribe("process_action.action_controller") do |event|
         if save_event?(event)
           InnerPerformance::SaveEventJob.perform_later(
             type: InnerPerformance::Events::ProcessActionActionController.name,
@@ -28,13 +28,13 @@ module InnerPerformance
             duration: event.duration,
             db_runtime: event.payload[:db_runtime],
             properties: {
-              view_runtime: event.payload[:view_runtime]
-            }
+              view_runtime: event.payload[:view_runtime],
+            },
           )
         end
       end
 
-      ActiveSupport::Notifications.subscribe 'perform.active_job' do |event|
+      ActiveSupport::Notifications.subscribe("perform.active_job") do |event|
         if save_event?(event)
           InnerPerformance::SaveEventJob.perform_later(
             type: InnerPerformance::Events::PerformActiveJob.name,
@@ -42,7 +42,7 @@ module InnerPerformance
             event: event.name,
             name: event.payload[:job].class.name,
             duration: event.duration,
-            db_runtime: event.payload[:db_runtime]
+            db_runtime: event.payload[:db_runtime],
           )
         end
       end
