@@ -15,7 +15,6 @@ module InnerPerformance
 
     STATIC_ASSETS = {
       css: {
-        application: asset_path("application.css"),
         bootstrap: asset_path("vendor/bootstrap.min.css"),
       },
     }.freeze
