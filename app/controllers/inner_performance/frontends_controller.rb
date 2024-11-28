@@ -9,8 +9,10 @@ module InnerPerformance
       expires_in 1.year, public: true
     end
 
-    def self.asset_path(path)
-      Engine.root.join("app/frontend/inner_performance", path)
+    class << self
+      def asset_path(path)
+        Engine.root.join("app/frontend/inner_performance", path)
+      end
     end
 
     STATIC_ASSETS = {
@@ -24,7 +26,7 @@ module InnerPerformance
       file_format = params[:format]&.to_sym
 
       file_path = STATIC_ASSETS.dig(file_format, file_stem) || raise(ActionController::RoutingError, "Not Found")
-      send_file file_path, disposition: "inline"
+      send_file(file_path, disposition: "inline")
     end
   end
 end
