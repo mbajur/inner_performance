@@ -61,7 +61,7 @@ InnerPerformance.configure do |config|
   # * InnerPerformance job namespace - we don't want to save events for
   #   the job that saves the events because that leeds to infinite loop.
   #   Better not remove this rule as it will lead to stack overflow.
-  config.ignore_rules.push(
+  config.ignore_rules.unshift(
     proc { |event| !event.is_a?(ActiveSupport::Notifications::Event) }
   )
 end
