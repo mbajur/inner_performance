@@ -1,25 +1,37 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
-default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+<%
+db_adapter = ENV.fetch('DB', 'sqlite3')
+db_host    = ENV.fetch('DB_HOST', ENV.fetch('DB_1_PORT_5432_TCP_ADDR', 'localhost'))
+db_port    = ENV['DB_1_PORT_5432_TCP_PORT'] || ENV['DB_PORT'] ||
+  {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
+require 'etc'
+db_pool_size = ENV['DB_POOL'] || (
+  # Web: max workers * max threads
+  ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
+  # ActiveJob Async max thread pool size
+  Etc.nprocessors
+  )
+%>
+
+defaults: &defaults
+  host: <%= db_host %>
+  port: <%= db_port %>
+  adapter: <%= db_adapter %>
+  min_messages: WARNING
+  pool: <%= db_pool_size %>
+  username: <%= ENV.fetch('DB_USERNAME', 'inner_performance').inspect %>
+  password: <%= ENV.fetch('DB_PASSWORD', 'inner_performance').inspect %>
 
 development:
-  <<: *default
-  database: storage/development.sqlite3
+  <<: *defaults
+  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', 'db/development.sqlite3') : 'inner_performance_dev' %>
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: storage/test.sqlite3
+  <<: *defaults
+  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', 'db/test.sqlite3') : 'inner_performance_test' %>
 
 production:
-  <<: *default
-  database: storage/production.sqlite3
+  <<: *defaults
+  encoding: utf8
+  min_messages: WARNING
+  url: <%= ENV['DATABASE_URL'].inspect if ENV['DATABASE_URL'] %>
+  database: <%= (db_adapter == 'sqlite3' ? 'db/production.sqlite3' : 'inner_performance_production') unless ENV['DATABASE_URL'] %>
