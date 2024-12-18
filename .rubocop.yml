@@ -6,6 +6,7 @@ inherit_gem:
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'spec/dummy/db/schema.rb'
+    - 'db/migrate/*'
 
 Style/MethodCallWithArgsParentheses:
   Exclude:
