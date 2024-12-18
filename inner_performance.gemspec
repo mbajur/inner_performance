@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ["mbajur"]
   spec.email       = ["mbajur@gmail.com"]
   spec.homepage    = "https://github.com/mbajur"
-  spec.summary     = "Database-backed modest performance monitoring tool for your Rails app."
-  spec.description = "Database-backed modest performance monitoring tool for your Rails app."
+  spec.summary     = "Simple database-backed performance monitoring for your Rails app."
+  spec.description = spec.summary
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
