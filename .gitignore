@@ -2,6 +2,7 @@
 /doc/
 /log/*.log
 /pkg/
+*.gem
 /tmp/
 /spec/dummy/db/*.sqlite3
 /spec/dummy/db/*.sqlite3-*
