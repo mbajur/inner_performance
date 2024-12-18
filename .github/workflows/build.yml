@@ -33,7 +33,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_HOST: "%"
-          MYSQL_DATABASE: inner_performance_gem_test
+          MYSQL_DATABASE: inner_performance_test
           MYSQL_USER: inner_performance
           MYSQL_PASSWORD: inner_performance
           MYSQL_ROOT_PASSWORD: inner_performance
