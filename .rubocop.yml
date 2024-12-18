@@ -2,3 +2,12 @@ inherit_from: .rubocop_todo.yml
 
 inherit_gem:
   rubocop-shopify: rubocop.yml
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'spec/dummy/db/schema.rb'
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - 'spec/dummy/db/schema.rb'
+
