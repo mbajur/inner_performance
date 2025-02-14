@@ -2,7 +2,7 @@
 
 module InnerPerformance
   class Configuration
-    attr_accessor :sample_rates, :events_retention, :medium_duration_range, :ignore_rules
+    attr_accessor :sample_rates, :events_retention, :medium_duration_range, :ignore_rules, :cleanup_immediately
 
     def initialize
       @sample_rates = {
@@ -15,6 +15,7 @@ module InnerPerformance
         proc { |event| rand(100) > InnerPerformance.configuration.sample_rates[event.name.to_s] },
         proc { |event| (event.payload[:job]&.class&.name || "").include?("InnerPerformance") },
       ]
+      @cleanup_immediately = false
     end
   end
 end

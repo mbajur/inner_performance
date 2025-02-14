@@ -29,4 +29,21 @@ describe InnerPerformance::SaveEventJob do
     expect(event.db_runtime).to(eq(79))
     expect(event.properties).to(eq("foo" => "bar"))
   end
+
+  context "when cleanup_immediately is true" do
+    before { InnerPerformance.configuration.cleanup_immediately = true }
+
+    it "enqueues CleanupJob" do
+      expect(InnerPerformance::CleanupJob).to(receive(:perform_later))
+      subject
+    end
+  end
+
+  context "when cleanup_immediately is false" do
+    before { InnerPerformance.configuration.cleanup_immediately = false }
+
+    it "does not enqueue CleanupJob" do
+      expect(InnerPerformance::CleanupJob).not_to(receive(:perform_later))
+    end
+  end
 end

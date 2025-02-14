@@ -64,6 +64,9 @@ InnerPerformance.configure do |config|
   config.ignore_rules.unshift(
     proc { |event| !event.is_a?(ActiveSupport::Notifications::Event) }
   )
+
+  # Set it to true if you want to cleanup old events right after saving the event
+  config.cleanup_immediately = false
 end
 ```
 
