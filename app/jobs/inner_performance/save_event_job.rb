@@ -12,6 +12,8 @@ module InnerPerformance
         db_runtime: db_runtime,
         properties: properties,
       )
+
+      InnerPerformance::CleanupJob.perform_later if InnerPerformance.configuration.cleanup_immediately
     end
   end
 end
