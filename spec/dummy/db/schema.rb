@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_14_162622) do
     t.integer "event_id", null: false
     t.string "name"
     t.string "type"
-    t.json "payload", default: {}
+    t.json "payload"
     t.decimal "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
