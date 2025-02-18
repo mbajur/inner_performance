@@ -2,6 +2,7 @@
 Simple database-backed performance monitoring for your Rails app.
 
 <img width="1188" alt="image" src="https://github.com/user-attachments/assets/cb659c76-8139-4ee0-b683-d6acef227dc6">
+<img width="1239" alt="image" src="https://github.com/user-attachments/assets/3d15f993-4575-4a5c-977c-5983d3af13c9" />
 
 ## Installation
 Add `inner_performance` gem to your bundle
