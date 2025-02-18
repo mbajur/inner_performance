@@ -32,7 +32,7 @@ describe InnerPerformance do
 
         context "when rand returned number bigger than sample rate" do
           before do
-            allow_any_instance_of(Object).to(receive(:rand).with(100).and_return(101))
+            allow_any_instance_of(Object).to(receive(:rand).with(100_000.0).and_return(100_000.1))
           end
 
           it { is_expected.to(eq(false)) }

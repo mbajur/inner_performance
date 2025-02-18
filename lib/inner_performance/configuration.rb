@@ -18,7 +18,7 @@ module InnerPerformance
       @events_retention = 1.week
       @medium_duration_range = [200, 999]
       @ignore_rules = [
-        proc { |event| rand(100_000.0) < (InnerPerformance.configuration.sample_rates[event.name.to_s] * 1000) },
+        proc { |event| rand(100_000.0) > (InnerPerformance.configuration.sample_rates[event.name.to_s] * 1000) },
         proc { |event| (event.payload[:job]&.class&.name || "").include?("InnerPerformance") },
       ]
       @cleanup_immediately = false
