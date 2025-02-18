@@ -12,7 +12,7 @@ module InnerPerformance
             name: trace[:name],
             payload: trace[:payload].to_json,
             duration: trace[:duration],
-            created_at: trace[:time],
+            created_at: Time.at(trace[:time]),
             event_id: event.id,
           }
         end

@@ -11,7 +11,7 @@ describe InnerPerformance::Traces::Db do
         name: "sql.active_record",
         payload: { sql: "foo" },
         duration: 123,
-        time: Time.current.to_i,
+        time: Time.current,
       }
     end
 
