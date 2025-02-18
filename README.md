@@ -38,7 +38,7 @@ InnerPerformance.configure do |config|
     # your app's performance. As an example: In a Spree shop with
     # approx. 170 requests per minute, keeping it at default 2%
     # provides me more than enough data to analyze and locate the
-    # bottlenecks.
+    # bottlenecks. Value can be both decimal and integer.
     'process_action.action_controller' => (Rails.env.production? ? 2 : 100),
 
     # 100% of all the jobs will be stored and analyzed.
