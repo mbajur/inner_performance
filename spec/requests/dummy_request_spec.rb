@@ -28,9 +28,45 @@ RSpec.describe("Dummy request", type: :request) do
             type: "InnerPerformance::Events::ProcessActionActionController",
             event: "process_action.action_controller",
             name: "ApplicationController#dummy",
+            traces: [],
           ),
         ),
       )
+    end
+
+    context "when traces_enabled is set to true" do
+      around(:example) do |ex|
+        traces_enabled = InnerPerformance.configuration.traces_enabled
+        InnerPerformance.configuration.traces_enabled = true
+        ex.run
+        InnerPerformance.configuration.traces_enabled = traces_enabled
+      end
+
+      it "enqueues InnerPerformance::SaveEventJob with traces" do
+        subject
+
+        expect(InnerPerformance::SaveEventJob).to(
+          have_been_enqueued.with(
+            hash_including(
+              type: "InnerPerformance::Events::ProcessActionActionController",
+              event: "process_action.action_controller",
+              name: "ApplicationController#dummy",
+            ),
+          ),
+        )
+
+        traces = enqueued_jobs.last[:args][0]["traces"]
+        expect(traces.size).to(eq(4))
+
+        identifiers = traces.map do |trace|
+          trace.dig("payload", "identifier") || trace.dig("payload", "sql")
+        end.to_a
+
+        expect(identifiers).to(include("SELECT COUNT(*) FROM \"inner_performance_events\"").once)
+        expect(identifiers).to(include("SELECT COUNT(*) FROM \"inner_performance_traces\"").once)
+        expect(identifiers).to(include(%r{app/views/application/_dummy_partial.html.erb}).once)
+        expect(identifiers).to(include(%r{app/views/application/dummy.html.erb}).once)
+      end
     end
   end
 end

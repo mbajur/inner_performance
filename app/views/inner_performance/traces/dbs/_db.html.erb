@@ -1,0 +1,10 @@
+<div class="card mb-3">
+  <div class="card-header d-flex">
+    <code><%= trace.name %></code>
+    <div class="ms-auto font-monospace small text-muted"><%= trace.duration %> ms</div>
+  </div>
+  <div class="card-body">
+    <div class="fw-semibold mb-1"><%= trace.payload_name %></div>
+    <div class="text-muted font-monospace small"><%= trace.payload_sql %></div>
+  </div>
+</div>

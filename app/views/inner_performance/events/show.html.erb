@@ -1,0 +1,32 @@
+<div class="row mb-5">
+  <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+    <h1 class="h3"><%= @event.name %></h1>
+    <div class="text-secondary">
+      <%= @event.created_at %> • <code><%= @event.event %></code>
+    </div>
+  </div>
+
+  <div class="col-lg-auto col-12 d-flex ms-auto gap-5">
+    <div>
+      <div class="text-uppercase small text-secondary">Duration</div>
+      <span><%= number_to_human(@event.duration, units: { unit: 'ms' }) %></span>
+    </div>
+
+    <div>
+      <div class="text-uppercase small text-secondary">Db Runtime</div>
+      <span><%= number_to_human(@event.db_runtime, units: { unit: 'ms' }) %></span>
+    </div>
+  </div>
+</div>
+
+<% if InnerPerformance.configuration.traces_enabled %>
+  <h4 class="mb-3"><%= pluralize(@traces.count, 'trace') %></h4>
+  <% @traces.each do |trace| %>
+    <%= render trace, trace: trace %>
+  <% end %>
+<% else %>
+  <h4 class="mb-3">Traces</h4>
+  <div class="card">
+    <div class="card-body bg-light text-center text-secondary">Traces tracking is currently disabled.</div>
+  </div>
+<% end %>

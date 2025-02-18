@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_18_082041) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_14_162622) do
   create_table "inner_performance_events", force: :cascade do |t|
     t.string "event"
     t.string "name"
@@ -21,4 +21,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_082041) do
     t.text "properties"
     t.string "type"
   end
+
+  create_table "inner_performance_traces", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.string "name"
+    t.string "type"
+    t.json "payload"
+    t.decimal "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_inner_performance_traces_on_event_id"
+  end
+
+  add_foreign_key "inner_performance_traces", "inner_performance_events", column: "event_id"
 end

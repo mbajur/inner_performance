@@ -1,10 +1,21 @@
 <%= search_form_for @q, class: 'mb-4' do |f| %>
   <div class="row align-items-end">
     <div class="col-10">
-      <%= f.label :name_eq, class: 'form-label' %>
-      <%= f.select :name_eq, options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, f.object.name_eq),
-                             { include_blank: true },
-                             { class: 'form-select' } %>
+      <div class="d-flex gap-4">
+        <div>
+          <%= f.label :name_eq, class: 'form-label' %>
+          <%= f.select :name_eq, options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, f.object.name_eq),
+                                { include_blank: true },
+                                { class: 'form-select' } %>
+        </div>
+
+        <div>
+          <%= f.label :event_eq, class: 'form-label' %>
+          <%= f.select :event_eq, options_for_select(InnerPerformance::Event.all.pluck(:event).uniq, f.object.event_eq),
+                                  { include_blank: true },
+                                  { class: 'form-select' } %>
+        </div>
+      </div>
     </div>
 
     <div class="col-2 text-end">

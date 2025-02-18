@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 InnerPerformance::Engine.routes.draw do
-  resources :events, only: [:index]
+  resources :events, only: [:index, :show]
 
   root to: "dashboard#index"
 
