@@ -35,8 +35,11 @@ RSpec.describe("Dummy request", type: :request) do
     end
 
     context "when traces_enabled is set to true" do
-      before do
+      around(:example) do |ex|
+        traces_enabled = InnerPerformance.configuration.traces_enabled
         InnerPerformance.configuration.traces_enabled = true
+        ex.run
+        InnerPerformance.configuration.traces_enabled = traces_enabled
       end
 
       it "enqueues InnerPerformance::SaveEventJob with traces" do

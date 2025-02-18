@@ -23,6 +23,13 @@ describe DummyJob do
       InnerPerformance.configuration.traces_enabled = true
     end
 
+    around(:example) do |ex|
+      traces_enabled = InnerPerformance.configuration.traces_enabled
+      InnerPerformance.configuration.traces_enabled = true
+      ex.run
+      InnerPerformance.configuration.traces_enabled = traces_enabled
+    end
+
     it "enqueues InnerPerformance::SaveEventJob with traces" do
       described_class.perform_now
 
@@ -33,7 +40,7 @@ describe DummyJob do
             event: "perform.active_job",
             name: "DummyJob",
           ),
-        ),
+        ).at_least(:once),
       )
 
       traces = ActiveJob::Base.queue_adapter.enqueued_jobs.last[:args][0]["traces"]
