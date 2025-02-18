@@ -82,7 +82,9 @@ InnerPerformance::CleanupJob.perform_later
 
 # Alternatives
 
-* [rails_performance](https://github.com/igorkasyanchuk/rails_performance) - much better but depends on Redis
+* [rails_performance](https://github.com/igorkasyanchuk/rails_performance) - much
+more robust but depends on Redis. Operates on `ActiveSupport::LogSubscriber`
+instead of `ActiveSupport::Notifications`
 
 ## License
 The gem is available as open source under the terms of the
