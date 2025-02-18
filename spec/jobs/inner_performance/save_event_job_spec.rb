@@ -16,6 +16,10 @@ describe InnerPerformance::SaveEventJob do
       properties: {
         foo: "bar",
       },
+      traces: [
+        { group: :db, name: "sql.active_record", payload: { sql: "SELECT * FROM foo" }, duration: 10, time: Time.current.to_i },
+        { group: :view, name: "render_template.action_view", payload: { identifier: "foo" }, duration: 20, time: Time.current.to_i },
+      ]
     }
   end
 
@@ -28,6 +32,19 @@ describe InnerPerformance::SaveEventJob do
     expect(event.duration).to(eq(100))
     expect(event.db_runtime).to(eq(79))
     expect(event.properties).to(eq("foo" => "bar"))
+  end
+
+  context "when traces_enabled is true" do
+    around(:example) do |ex|
+      traces_enabled = InnerPerformance.configuration.traces_enabled
+      InnerPerformance.configuration.traces_enabled = true
+      ex.run
+      InnerPerformance.configuration.traces_enabled = traces_enabled
+    end
+
+    it "saves traces" do
+      expect { subject }.to(change(InnerPerformance::Trace.all, :count).by(2))
+    end
   end
 
   context "when cleanup_immediately is true" do
