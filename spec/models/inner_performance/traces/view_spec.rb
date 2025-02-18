@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe InnerPerformance::Traces::View do
-  describe '.initialize_for_insert' do
+  describe ".initialize_for_insert" do
     subject { described_class.initialize_for_insert(trace: trace, event: event) }
 
     let(:trace) do
       {
-        name: 'render_template.action_view',
-        payload: { identifier: 'foo' },
+        name: "render_template.action_view",
+        payload: { identifier: "foo" },
         duration: 123,
         time: Time.current.to_i,
       }
@@ -17,7 +17,7 @@ describe InnerPerformance::Traces::View do
 
     let(:event) { create(:event) }
 
-    it 'returns a hash with the correct keys and values' do
+    it "returns a hash with the correct keys and values" do
       expect(subject).to(eq({
         type: "InnerPerformance::Traces::View",
         name: "render_template.action_view",
