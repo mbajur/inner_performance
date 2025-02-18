@@ -12,7 +12,7 @@ describe DummyJob do
           type: "InnerPerformance::Events::PerformActiveJob",
           event: "perform.active_job",
           name: "DummyJob",
-          traces: []
+          traces: [],
         ),
       ),
     )
@@ -36,11 +36,11 @@ describe DummyJob do
         ),
       )
 
-      traces = ActiveJob::Base.queue_adapter.enqueued_jobs.last[:args][0]['traces']
+      traces = ActiveJob::Base.queue_adapter.enqueued_jobs.last[:args][0]["traces"]
       expect(traces.size).to(eq(2))
 
       identifiers = traces.map do |trace|
-        trace.dig('payload', 'identifier') || trace.dig('payload', 'sql')
+        trace.dig("payload", "identifier") || trace.dig("payload", "sql")
       end.to_a
 
       expect(identifiers).to(include("SELECT \"inner_performance_events\".* FROM \"inner_performance_events\"").once)

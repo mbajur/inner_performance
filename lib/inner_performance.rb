@@ -20,7 +20,7 @@ module InnerPerformance
     end
 
     def install!
-      ActiveSupport::Notifications.subscribe "render_template.action_view" do |event|
+      ActiveSupport::Notifications.subscribe("render_template.action_view") do |event|
         CurrentRequest.current.trace({
           group: :view,
           name: event.name,
@@ -29,7 +29,7 @@ module InnerPerformance
         }) if InnerPerformance.configuration.traces_enabled
       end
 
-      ActiveSupport::Notifications.subscribe "render_partial.action_view" do |event|
+      ActiveSupport::Notifications.subscribe("render_partial.action_view") do |event|
         CurrentRequest.current.trace({
           group: :view,
           name: event.name,
@@ -38,8 +38,8 @@ module InnerPerformance
         }) if InnerPerformance.configuration.traces_enabled
       end
 
-      ActiveSupport::Notifications.subscribe "sql.active_record" do |event|
-        if !event.payload[:name].in?(InnerPerformance.configuration.ignored_event_names)
+      ActiveSupport::Notifications.subscribe("sql.active_record") do |event|
+        unless event.payload[:name].in?(InnerPerformance.configuration.ignored_event_names)
           CurrentRequest.current.trace({
             group: :db,
             name: event.name,
@@ -61,7 +61,7 @@ module InnerPerformance
             properties: {
               view_runtime: event.payload[:view_runtime],
             },
-            traces: CurrentRequest.current.traces
+            traces: CurrentRequest.current.traces,
           )
         end
 
@@ -77,7 +77,7 @@ module InnerPerformance
             name: event.payload[:job].class.name,
             duration: event.duration,
             db_runtime: event.payload[:db_runtime],
-            traces: CurrentRequest.current.traces
+            traces: CurrentRequest.current.traces,
           )
         end
 

@@ -17,7 +17,7 @@ module InnerPerformance
         InnerPerformance::Trace.insert_all(
           traces.map do |trace|
             InnerPerformance::TraceForInsertInitializer.new(trace: trace, event: event)
-          end
+          end,
         )
       end
 

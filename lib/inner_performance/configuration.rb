@@ -3,12 +3,12 @@
 module InnerPerformance
   class Configuration
     attr_accessor :sample_rates,
-                  :events_retention,
-                  :medium_duration_range,
-                  :ignore_rules,
-                  :cleanup_immediately,
-                  :traces_enabled,
-                  :ignored_event_names
+      :events_retention,
+      :medium_duration_range,
+      :ignore_rules,
+      :cleanup_immediately,
+      :traces_enabled,
+      :ignored_event_names
 
     def initialize
       @sample_rates = {
@@ -27,7 +27,7 @@ module InnerPerformance
         "SCHEMA",
         "TRANSACTION",
         "ActiveRecord::InternalMetadata Load",
-        "ActiveRecord::SchemaMigration Load"
+        "ActiveRecord::SchemaMigration Load",
       ]
     end
   end

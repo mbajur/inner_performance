@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InnerPerformance
   class TraceForInsertInitializer
     def self.new(trace:, event:)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Heavily based on RailsPerformance implementation:
 # https://github.com/igorkasyanchuk/rails_performance/blob/master/lib/rails_performance/thread/current_request.rb
 module InnerPerformance

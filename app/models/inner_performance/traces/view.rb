@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InnerPerformance::Traces
   class View < InnerPerformance::Trace
     store :payload, accessors: [:identifier], coder: JSON, prefix: true
@@ -9,7 +11,7 @@ module InnerPerformance::Traces
         payload: trace[:payload].to_json,
         duration: trace[:duration],
         created_at: trace[:time],
-        event_id: event.id
+        event_id: event.id,
       }
     end
   end
