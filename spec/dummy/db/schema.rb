@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_14_162622) do
   end
 
   create_table "inner_performance_traces", force: :cascade do |t|
-    t.integer "event_id", null: false
+    t.bigint "event_id", null: false
     t.string "name"
     t.string "type"
     t.json "payload"
