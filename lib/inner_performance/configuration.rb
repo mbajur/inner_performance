@@ -2,7 +2,13 @@
 
 module InnerPerformance
   class Configuration
-    attr_accessor :sample_rates, :events_retention, :medium_duration_range, :ignore_rules, :cleanup_immediately
+    attr_accessor :sample_rates,
+                  :events_retention,
+                  :medium_duration_range,
+                  :ignore_rules,
+                  :cleanup_immediately,
+                  :traces_enabled,
+                  :ignored_event_names
 
     def initialize
       @sample_rates = {
@@ -16,6 +22,13 @@ module InnerPerformance
         proc { |event| (event.payload[:job]&.class&.name || "").include?("InnerPerformance") },
       ]
       @cleanup_immediately = false
+      @traces_enabled = false
+      @ignored_event_names = [
+        "SCHEMA",
+        "TRANSACTION",
+        "ActiveRecord::InternalMetadata Load",
+        "ActiveRecord::SchemaMigration Load"
+      ]
     end
   end
 end

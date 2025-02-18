@@ -55,6 +55,9 @@ InnerPerformance.configure do |config|
   # be considered slow.
   config.medium_duration_range = [200, 999]
 
+  # Set it to true to enable tracing of SQL queries and views rendering
+  config.traces_enabled = false
+
   # Rules for ignoring an event. There are two rules applied by default:
   # * sample_rates - operates on configured sample rate and drops events
   #   which do not got lucky when drawing a random number

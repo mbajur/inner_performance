@@ -2,6 +2,8 @@
 
 module InnerPerformance
   class Event < ApplicationRecord
+    has_many :traces, dependent: :destroy
+
     serialize :properties, coder: JSON
 
     def self.ransackable_attributes(_auth_object = nil)

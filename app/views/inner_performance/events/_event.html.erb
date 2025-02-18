@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to event.name, events_path(q: { name_eq: event.name }) %></td>
+  <td><%= link_to event.name, event_path(event) %></td>
   <td class="<%= row_class_from_duration(event.duration) %>">
     <%= number_to_human(event.duration, units: { unit: 'ms' }) %>
   </td>
