@@ -4,7 +4,7 @@ class CreateInnerPerformanceTraces < ActiveRecord::Migration[7.1]
       t.references(:event, null: false, foreign_key: { to_table: :inner_performance_events })
       t.string(:name)
       t.string(:type)
-      t.json(:payload, default: {})
+      t.json(:payload)
       t.decimal(:duration)
 
       t.timestamps
