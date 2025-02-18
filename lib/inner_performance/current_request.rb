@@ -31,7 +31,7 @@ module InnerPerformance
     end
 
     def trace(options = {})
-      @traces << options.merge(time: Time.current.to_i)
+      @traces << options.merge(time: Time.current)
     end
   end
 end

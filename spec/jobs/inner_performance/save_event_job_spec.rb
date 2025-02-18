@@ -17,9 +17,21 @@ describe InnerPerformance::SaveEventJob do
         foo: "bar",
       },
       traces: [
-        { group: :db, name: "sql.active_record", payload: { sql: "SELECT * FROM foo" }, duration: 10, time: Time.current.to_i },
-        { group: :view, name: "render_template.action_view", payload: { identifier: "foo" }, duration: 20, time: Time.current.to_i },
-      ]
+        {
+          group: :db,
+          name: "sql.active_record",
+          payload: { sql: "SELECT * FROM foo" },
+          duration: 10,
+          time: Time.current,
+        },
+        {
+          group: :view,
+          name: "render_template.action_view",
+          payload: { identifier: "foo" },
+          duration: 20,
+          time: Time.current,
+        },
+      ],
     }
   end
 

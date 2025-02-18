@@ -5,13 +5,14 @@ require "rails_helper"
 describe InnerPerformance::Traces::View do
   describe ".initialize_for_insert" do
     subject { described_class.initialize_for_insert(trace: trace, event: event) }
+    let!(:time) { Time.current }
 
     let(:trace) do
       {
         name: "render_template.action_view",
         payload: { identifier: "foo" },
         duration: 123,
-        time: Time.current.to_i,
+        time: time,
       }
     end
 
@@ -23,7 +24,7 @@ describe InnerPerformance::Traces::View do
         name: "render_template.action_view",
         payload: { identifier: "foo" }.to_json,
         duration: 123,
-        created_at: trace[:time],
+        created_at: time,
         event_id: event.id,
       }))
     end
