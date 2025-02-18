@@ -8,16 +8,18 @@ module InnerPerformance
     attr_accessor :data
     attr_accessor :record
 
-    def self.init
-      Thread.current[:ip_current_request] ||= CurrentRequest.new(SecureRandom.hex(16))
-    end
+    class << self
+      def init
+        Thread.current[:ip_current_request] ||= CurrentRequest.new(SecureRandom.hex(16))
+      end
 
-    def self.current
-      CurrentRequest.init
-    end
+      def current
+        CurrentRequest.init
+      end
 
-    def self.cleanup
-      Thread.current[:ip_current_request] = nil
+      def cleanup
+        Thread.current[:ip_current_request] = nil
+      end
     end
 
     def initialize(request_id)
