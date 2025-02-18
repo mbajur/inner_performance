@@ -8,7 +8,7 @@ module InnerPerformance
       class << self
         def initialize_for_insert(trace:, event:)
           {
-            type: self.class.name,
+            type: name,
             name: trace[:name],
             payload: trace[:payload].to_json,
             duration: trace[:duration],
