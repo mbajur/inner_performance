@@ -81,6 +81,8 @@ To ensure optimal performance and avoid data bloat, remember to schedule the cle
 InnerPerformance::CleanupJob.perform_later
 ```
 
+Alternatively to scheduling the job yourself, you may utilize the configuration option `config.cleanup_immediately = true`. This configuration is not as optimal so its disabled by default.
+
 # Alternatives
 
 * [rails_performance](https://github.com/igorkasyanchuk/rails_performance) - much
