@@ -2,7 +2,7 @@
 
 module InnerPerformance
   class EventsController < ApplicationController
-    include Pagy::Backend
+    include Pagy::Method
 
     def index
       @q = InnerPerformance::Event.all.ransack(params[:q])

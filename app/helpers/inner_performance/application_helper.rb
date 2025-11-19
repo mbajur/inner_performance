@@ -2,8 +2,6 @@
 
 module InnerPerformance
   module ApplicationHelper
-    include Pagy::Frontend
-
     # Based on https://stackoverflow.com/a/45428183/552936 and
     # https://datadome.co/learning-center/how-to-reduce-server-response-time/
     def row_class_from_duration(duration)
