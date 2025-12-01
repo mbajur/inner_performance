@@ -18,6 +18,8 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/mbajur/inner_performance"
   spec.metadata["changelog_uri"] = "https://github.com/mbajur/inner_performance"
 
+  spec.required_ruby_version = ">= 3.2"
+
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
