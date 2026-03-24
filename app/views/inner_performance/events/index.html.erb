@@ -4,13 +4,13 @@
       <div class="d-flex gap-4">
         <div>
           <%= label_tag "q[name_eq]", "Name", class: 'form-label' %>
-          <%= select_tag "q[name_eq]", options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, params.dig(:q, :name_eq)),
+          <%= select_tag "q[name_eq]", options_for_select(InnerPerformance::Event.distinct.pluck(:name), params.dig(:q, :name_eq)),
                                       { include_blank: true, class: 'form-select' } %>
         </div>
 
         <div>
           <%= label_tag "q[event_eq]", "Event", class: 'form-label' %>
-          <%= select_tag "q[event_eq]", options_for_select(InnerPerformance::Event.all.pluck(:event).uniq, params.dig(:q, :event_eq)),
+          <%= select_tag "q[event_eq]", options_for_select(InnerPerformance::Event.distinct.pluck(:event), params.dig(:q, :event_eq)),
                                         { include_blank: true, class: 'form-select' } %>
         </div>
       </div>

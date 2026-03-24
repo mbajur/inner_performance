@@ -6,23 +6,18 @@ module InnerPerformance
     SORTABLE_COLUMNS = %w[name duration db_runtime created_at].freeze
 
     def index
-      @current_page = params[:page].presence&.to_i
+      query = InnerPerformance::RecordsQuery.new(
+        scope: InnerPerformance::Event.all,
+        params: params,
+        filterable_attributes: %w[name event],
+        sortable_columns: SORTABLE_COLUMNS,
+        per_page: RESULTS_PER_PAGE,
+      )
 
-      if current_page.nil? || current_page < 1
-        @current_page = 1
-      end
-
-      scope = InnerPerformance::Event.all
-      scope = scope.where(name: params.dig(:q, :name_eq)) if params.dig(:q, :name_eq).present?
-      scope = scope.where(event: params.dig(:q, :event_eq)) if params.dig(:q, :event_eq).present?
-
-      @sort_column = SORTABLE_COLUMNS.include?(params[:sort]) ? params[:sort] : "created_at"
-      @sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-
-      @events = scope
-        .order(@sort_column => @sort_direction)
-        .limit(RESULTS_PER_PAGE)
-        .offset(RESULTS_PER_PAGE * (@current_page - 1))
+      @current_page = query.current_page
+      @sort_column = query.sort_column
+      @sort_direction = query.sort_direction
+      @events = query.records
     end
 
     def show
