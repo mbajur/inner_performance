@@ -7,7 +7,6 @@ require "inner_performance/configuration"
 require_relative "inner_performance/current_request"
 
 require "ransack"
-require "pagy"
 
 module InnerPerformance
   class << self

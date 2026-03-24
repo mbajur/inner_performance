@@ -36,4 +36,12 @@
   </tbody>
 </table>
 
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+<div style="text-align: center;">
+  <% if @current_page > 1 %>
+    <%= link_to "Prev Page", params.to_unsafe_h(page: @current_page - 1), style: "margin-right: 20px;" %>
+  <% end %>
+
+  <% if @events.size == InnerPerformance::EventsController::RESULTS_PER_PAGE %>
+    <%= link_to "Next Page", params.to_unsafe_h(page: @current_page + 1) %>
+  <% end %>
+</div>

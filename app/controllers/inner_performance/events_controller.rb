@@ -2,12 +2,24 @@
 
 module InnerPerformance
   class EventsController < ApplicationController
-    include Pagy::Backend
+    RESULTS_PER_PAGE = 50
 
     def index
-      @q = InnerPerformance::Event.all.ransack(params[:q])
+      @current_page = params[:page].presence&.to_i
+
+      if current_page.nil? || current_page < 1
+        @current_page = 1
+      end
+
+      @q = InnerPerformance::Event
+        .all
+        .limit(RESULTS_PER_PAGE)
+        .offset(RESULTS_PER_PAGE * (@current_page - 1))
+        .ransack(params[:q])
+
       @q.sorts = "created_at desc" if @q.sorts.empty?
-      @pagy, @events = pagy(@q.result)
+
+      @events = @q.result
     end
 
     def show
