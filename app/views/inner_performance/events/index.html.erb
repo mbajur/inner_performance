@@ -1,19 +1,17 @@
-<%= search_form_for @q, class: 'mb-4' do |f| %>
+<%= form_with url: inner_performance.events_path, method: :get, class: 'mb-4' do |f| %>
   <div class="row align-items-end">
     <div class="col-10">
       <div class="d-flex gap-4">
         <div>
-          <%= f.label :name_eq, class: 'form-label' %>
-          <%= f.select :name_eq, options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, f.object.name_eq),
-                                { include_blank: true },
-                                { class: 'form-select' } %>
+          <%= label_tag "q[name_eq]", "Name", class: 'form-label' %>
+          <%= select_tag "q[name_eq]", options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, params.dig(:q, :name_eq)),
+                                      { include_blank: true, class: 'form-select' } %>
         </div>
 
         <div>
-          <%= f.label :event_eq, class: 'form-label' %>
-          <%= f.select :event_eq, options_for_select(InnerPerformance::Event.all.pluck(:event).uniq, f.object.event_eq),
-                                  { include_blank: true },
-                                  { class: 'form-select' } %>
+          <%= label_tag "q[event_eq]", "Event", class: 'form-label' %>
+          <%= select_tag "q[event_eq]", options_for_select(InnerPerformance::Event.all.pluck(:event).uniq, params.dig(:q, :event_eq)),
+                                        { include_blank: true, class: 'form-select' } %>
         </div>
       </div>
     </div>
@@ -26,10 +24,10 @@
 
 <table class="table table-hover">
   <thead>
-    <th><%= sort_link @q, :name, hide_indicator: true %></th>
-    <th><%= sort_link @q, :duration, hide_indicator: true %></th>
-    <th><%= sort_link @q, :db_runtime, hide_indicator: true %></th>
-    <th class="text-end"><%= sort_link @q, :created_at, hide_indicator: true %></th>
+    <th><%= sort_link_to "Name", :name %></th>
+    <th><%= sort_link_to "Duration", :duration %></th>
+    <th><%= sort_link_to "Db runtime", :db_runtime %></th>
+    <th class="text-end"><%= sort_link_to "Created at", :created_at %></th>
   </thead>
   <tbody>
     <%= render collection: @events, partial: 'inner_performance/events/event', cached: true %>

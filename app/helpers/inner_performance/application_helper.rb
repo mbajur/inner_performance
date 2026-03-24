@@ -13,5 +13,11 @@ module InnerPerformance
         "text-danger"
       end
     end
+
+    def sort_link_to(name, column)
+      column = column.to_s
+      direction = (@sort_column == column && @sort_direction == "asc") ? "desc" : "asc"
+      link_to name, params.to_unsafe_h.except("page").merge(sort: column, direction: direction)
+    end
   end
 end

@@ -6,8 +6,6 @@ require "inner_performance/configuration"
 
 require_relative "inner_performance/current_request"
 
-require "ransack"
-
 module InnerPerformance
   class << self
     def configuration
