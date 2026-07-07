@@ -8,7 +8,8 @@ module InnerPerformance
       :ignore_rules,
       :cleanup_immediately,
       :traces_enabled,
-      :ignored_event_names
+      :ignored_event_names,
+      :connects_to
 
     def initialize
       @sample_rates = {
