@@ -7,7 +7,7 @@ module InnerPerformance
     def index
       @current_page = params[:page].presence&.to_i
 
-      if current_page.nil? || current_page < 1
+      if @current_page.nil? || @current_page < 1
         @current_page = 1
       end
 
