@@ -9,7 +9,7 @@ module InnerPerformance
     end
 
     initializer "inner_performance.install" do
-      InnerPerformance.install!
+      InnerPerformance.install! if InnerPerformance.configuration.enabled
     end
 
     initializer "inner_performance.assets.precompile" do |app|

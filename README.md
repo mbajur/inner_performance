@@ -31,6 +31,14 @@ them, you have a following options available:
 
 ```ruby
 InnerPerformance.configure do |config|
+  # Set it to false to fully disable InnerPerformance: it won't subscribe to
+  # any instrumentation events, won't enqueue InnerPerformance::SaveEventJob,
+  # and InnerPerformance::ApplicationRecord won't attempt to connect to the
+  # `connects_to` database (see "Using a separate database" below). Handy for
+  # environments where you don't want it running at all, e.g. in test/CI
+  # where the separate inner_performance database isn't configured:
+  config.enabled = !Rails.env.test?
+
   config.sample_rates = {
     # 2% of all the requests will be stored and analyzed. I would
     # recommend keeping it low because otherwise your database will
@@ -128,7 +136,12 @@ $ rails db:migrate
 
 **Note**: to use a separate database outside of production (development,
 test, etc.), repeat the `database.yml` entry and `config.connects_to` setup
-for those environments too.
+for those environments too. If you'd rather not configure a separate database
+for a given environment at all (e.g. `test`/CI), set `config.enabled = false`
+there instead — `InnerPerformance::ApplicationRecord` will skip `connects_to`
+entirely and fall back to the primary connection instead of raising
+`ActiveRecord::AdapterNotSpecified` for a database that isn't configured in
+that environment.
 
 ## Regular Housekeeping
 To ensure optimal performance and avoid data bloat, remember to schedule the cleanup job:
