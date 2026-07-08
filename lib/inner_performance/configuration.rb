@@ -8,9 +8,12 @@ module InnerPerformance
       :ignore_rules,
       :cleanup_immediately,
       :traces_enabled,
-      :ignored_event_names
+      :ignored_event_names,
+      :connects_to,
+      :enabled
 
     def initialize
+      @enabled = true
       @sample_rates = {
         "process_action.action_controller" => 2,
         "perform.active_job" => 100,

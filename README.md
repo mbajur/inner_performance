@@ -31,6 +31,14 @@ them, you have a following options available:
 
 ```ruby
 InnerPerformance.configure do |config|
+  # Set it to false to fully disable InnerPerformance: it won't subscribe to
+  # any instrumentation events, won't enqueue InnerPerformance::SaveEventJob,
+  # and InnerPerformance::ApplicationRecord won't attempt to connect to the
+  # `connects_to` database (see "Using a separate database" below). Handy for
+  # environments where you don't want it running at all, e.g. in test/CI
+  # where the separate inner_performance database isn't configured:
+  config.enabled = !Rails.env.test?
+
   config.sample_rates = {
     # 2% of all the requests will be stored and analyzed. I would
     # recommend keeping it low because otherwise your database will
@@ -73,6 +81,67 @@ InnerPerformance.configure do |config|
   config.cleanup_immediately = false
 end
 ```
+
+## Using a separate database
+By default, inner_performance stores its data in your application's primary
+database. If you'd rather keep it isolated from your primary database (same
+idea as `solid_queue`, `solid_cache` or `solid_cable`), you can have it
+connect to its own database instead.
+
+First, add the database to `config/database.yml`. If you're using SQLite,
+it'll look like this:
+
+```yaml
+production:
+  primary:
+    <<: *default
+    database: storage/production.sqlite3
+  inner_performance:
+    <<: *default
+    database: storage/production_inner_performance.sqlite3
+    migrations_paths: db/inner_performance_migrate
+```
+
+...or if you're using MySQL/PostgreSQL/Trilogy:
+
+```yaml
+production:
+  primary: &primary_production
+    <<: *default
+    database: app_production
+    username: app
+    password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+  inner_performance:
+    <<: *primary_production
+    database: app_production_inner_performance
+    migrations_paths: db/inner_performance_migrate
+```
+
+Then tell InnerPerformance to connect to it:
+
+```ruby
+InnerPerformance.configure do |config|
+  config.connects_to = { database: { writing: :inner_performance, reading: :inner_performance } }
+end
+```
+
+Instead of the regular `inner_performance:install:migrations` task, copy the
+migrations into the dedicated path so they only ever run against the
+`inner_performance` database:
+
+```
+$ rails railties:install:migrations FROM=inner_performance DATABASE=inner_performance
+$ rails db:migrate
+```
+
+**Note**: to use a separate database outside of production (development,
+test, etc.), repeat the `database.yml` entry and `config.connects_to` setup
+for those environments too. If you'd rather not configure a separate database
+for a given environment at all (e.g. `test`/CI), set `config.enabled = false`
+there instead — `InnerPerformance::ApplicationRecord` will skip `connects_to`
+entirely and fall back to the primary connection instead of raising
+`ActiveRecord::AdapterNotSpecified` for a database that isn't configured in
+that environment.
 
 ## Regular Housekeeping
 To ensure optimal performance and avoid data bloat, remember to schedule the cleanup job:
